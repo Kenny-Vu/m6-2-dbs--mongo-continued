@@ -11,8 +11,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(require("./routes"));
 
-app.get("/seats", getSeats);
-
 const server = app.listen(PORT, function () {
   console.info("🌍 Listening on port " + server.address().port);
 });

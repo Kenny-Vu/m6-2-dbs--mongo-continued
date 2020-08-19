@@ -1,18 +1,15 @@
 const router = require("express").Router();
-
 const { MongoClient } = require("mongodb");
 const assert = require("assert");
-
 require("dotenv").config();
-const { MONGO_URI } = process.env;
 
+const { getSeats } = require("./handlers");
+
+const { MONGO_URI } = process.env;
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
-
-const NUM_OF_ROWS = 8;
-const SEATS_PER_ROW = 12;
 
 // Code that is generating the seats.
 // ----------------------------------
@@ -67,20 +64,7 @@ const randomlyBookSeats = (num) => {
 
 let state;
 
-router.get("/api/seat-availability", async (req, res) => {
-  if (!state) {
-    state = {
-      bookedSeats: randomlyBookSeats(30),
-    };
-  }
-
-  return res.json({
-    seats: seats,
-    bookedSeats: state.bookedSeats,
-    numOfRows: 8,
-    seatsPerRow: 12,
-  });
-});
+router.get("/api/seat-availability", getSeats);
 
 let lastBookingAttemptSucceeded = false;
 
