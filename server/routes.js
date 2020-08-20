@@ -64,8 +64,6 @@ const randomlyBookSeats = (num) => {
 
 router.get("/api/seat-availability", getSeats);
 
-let lastBookingAttemptSucceeded = false;
-
 router.post("/api/book-seat", bookSeat);
 
 module.exports = router;

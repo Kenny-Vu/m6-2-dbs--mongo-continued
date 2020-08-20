@@ -69,7 +69,7 @@ const getSeats = async (req, res) => {
 };
 
 const bookSeat = async (req, res) => {
-  const { seatId, creditCard, expiration } = req.body;
+  const { seatId, creditCard, expiration, fullName, email } = req.body;
   const isAlreadyBooked = !!state.bookedSeats[seatId];
 
   const client = await MongoClient(MONGO_URI, options);
@@ -104,7 +104,7 @@ const bookSeat = async (req, res) => {
       .collection("seats")
       .updateOne(
         { _id: seatId },
-        { $set: { isBooked: true, creditCard, expiration } }
+        { $set: { isBooked: true, creditCard, expiration, fullName, email } }
       );
     console.log(result);
     res.status(201).json({ status: 201, success: true });
